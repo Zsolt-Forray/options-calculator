@@ -1,0 +1,42 @@
+# financial-info-scraper
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c0113772b1dc48b9865535ca3ac7daa0)](https://www.codacy.com/app/forray.zsolt/options-calculator?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Zsolt-Forray/options-calculator&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.com/Zsolt-Forray/working-and-test.svg?branch=master)](https://travis-ci.com/Zsolt-Forray/working-and-test)
+[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
+
+## Description
+Calculates the value of Call/Put European options on non-dividend paying stocks and the Greeks.
+
+## Usage
+1.  Create a new directory somewhere.
+2.  Open the Start Menu, type `cmd` in the search field, and then press Enter.
+3.  Clone the project by running (make sure that you are in the newly created directory first!):
+```
+git clone https://github.com/Zsolt-Forray/options-calculator.git
+```
+4.  Tool is found in the `options-calculator` folder.
+
+### Usage Example
+
+#### Parameters:
++   S: Stock Price
++   K: Strike Price
++   DTE: Days to Expiration
++   IV: Implied Volatility (%)
++   r: Risk-free Rate (%)
+
+```
+from option_pricing import option_pricing_black_scholes as op
+import pprint
+
+pp = pprint.PrettyPrinter(indent=4)
+
+res = op.run(S=65, K=60, DTE=30, IV=35, r=2.493)
+
+pp.pprint(res)
+```
+
+### Output
+Dictionary: theoretical prices and the Greeks for European style Call and Put options.
+
+![Screenshot](/png/output.png)
