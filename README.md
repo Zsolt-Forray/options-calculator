@@ -44,4 +44,5 @@ Dictionary: theoretical prices and the Greeks for European style Call and Put op
 
 ## Contributions
 Contributions to Options Calculator are always welcome.  
-If you have questions, suggestions or want to improve this repository, please create an issue or pull requests.
+If you have questions, suggestions or want to improve this repository, please create an [issue](https://github.com/Zsolt-Forray/options-calculator/issues) or [pull requests](https://github.com/Zsolt-Forray/options-calculator/pulls).  
+This repo is maintained by Zsolt Forray (forray.zsolt@gmail.com).
