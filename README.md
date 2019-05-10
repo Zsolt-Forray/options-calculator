@@ -11,7 +11,7 @@ Calculates the value of Call/Put European options on non-dividend paying stocks 
 1.  Create a new directory somewhere.
 2.  Open the Start Menu, type `cmd` in the search field, and then press Enter.
 3.  Clone the project by running (make sure that you are in the newly created directory first!):
-```
+```txt
 git clone https://github.com/Zsolt-Forray/options-calculator.git
 ```
 4.  Tool is found in the `options-calculator` folder.
