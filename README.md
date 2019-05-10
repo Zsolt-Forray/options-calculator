@@ -41,3 +41,7 @@ pp.pprint(res)
 Dictionary: theoretical prices and the Greeks for European style Call and Put options.
 
 ![Screenshot](/png/output.png)
+
+## Contributions
+Contributions to Options Calculator are always welcome.  
+If you have questions, suggestions or want to improve this repository, please create an issue or pull requests.
