@@ -1,4 +1,4 @@
-# financial-info-scraper
+# options-calculator
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c0113772b1dc48b9865535ca3ac7daa0)](https://www.codacy.com/app/forray.zsolt/options-calculator?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Zsolt-Forray/options-calculator&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.com/Zsolt-Forray/working-and-test.svg?branch=master)](https://travis-ci.com/Zsolt-Forray/working-and-test)
