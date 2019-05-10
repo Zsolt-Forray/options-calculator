@@ -18,14 +18,14 @@ git clone https://github.com/Zsolt-Forray/options-calculator.git
 
 ### Usage Example
 
-#### Parameters:
+**Parameters:**
 +   S: Stock Price
 +   K: Strike Price
 +   DTE: Days to Expiration
 +   IV: Implied Volatility (%)
 +   r: Risk-free Rate (%)
 
-```
+```python
 from option_pricing import option_pricing_black_scholes as op
 import pprint
 
