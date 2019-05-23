@@ -2,7 +2,7 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c0113772b1dc48b9865535ca3ac7daa0)](https://www.codacy.com/app/forray.zsolt/options-calculator?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Zsolt-Forray/options-calculator&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/c0113772b1dc48b9865535ca3ac7daa0)](https://www.codacy.com/app/forray.zsolt/options-calculator?utm_source=github.com&utm_medium=referral&utm_content=Zsolt-Forray/options-calculator&utm_campaign=Badge_Coverage)
-[![Build Status](https://travis-ci.com/Zsolt-Forray/working-and-test.svg?branch=master)](https://travis-ci.com/Zsolt-Forray/working-and-test)
+[![Build Status](https://travis-ci.com/Zsolt-Forray/options-calculator.svg?branch=master)](https://travis-ci.com/Zsolt-Forray/options-calculator)
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 
 ## Description
