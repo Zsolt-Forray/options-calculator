@@ -60,8 +60,7 @@ class OptionPricing(object):
         X1 = self.K * m.exp(-self.r_dec * self.t_yrs)
         call_price = round(X0c - X1 * self.X2c, 2)
         put_price = round(X0p + X1 * self.X2p, 2)
-        return (call_price, put_price)
-        # return {"call":round(call_price,2), "put":round(put_price,2)}
+        return {"call":round(call_price,2), "put":round(put_price,2)}
 
     # The sensitivities of the Black-Scholes Model
     def delta(self):
