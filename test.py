@@ -78,7 +78,7 @@ class TestOptionsPricing(unittest.TestCase):
     def test_string_params(self):
         data = (65.0, "x", 30.0, 35.0, 2.493)
         with self.assertRaises(TypeError):
-            obj = op.OptionPricing(*data)
+            op.OptionPricing(*data)
 
     def test_invalid_param(self):
         data = (65.0, 60.0, 30.0, 0.0, 2.493)
