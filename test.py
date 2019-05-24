@@ -2,26 +2,22 @@ import unittest
 import os
 import sys
 
-# currdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# appdir = os.path.join(currdir, "option_pricing")
-#
-# sys.path.insert(0, appdir)
 
 import option_pricing_black_scholes as op
 from option_pricing_black_scholes import InvalidDataError
 
 class TestOptionsPricing(unittest.TestCase):
-    def test_price(self):
+    def test_call_price(self):
         data = (65.0, 60.0, 30.0, 35.0, 2.493)
         obj = op.OptionPricing(*data)
-        # call_price = obj.price()["call"]
-        # self.assertAlmostEqual(first=5.8523, second=call_price, places=2)
-        # put_price = obj.price()["put"]
-        # self.assertAlmostEqual(first=0.7279, second=put_price, places=2)
-        self.assertTupleEqual(obj.price(), (5.85, 0.73))
+        result = obj.price()["call"]
+        self.assertAlmostEqual(first=5.8523, second=call_price, places=2)
 
-
-
+    def test_call_price(self):
+        data = (65.0, 60.0, 30.0, 35.0, 2.493)
+        obj = op.OptionPricing(*data)
+        put_price = obj.price()["put"]
+        self.assertAlmostEqual(first=0.7279, second=put_price, places=2)
 
     def test_call_delta(self):
         data = (150.0, 180.0, 350.0, 20.0, 2.493)
