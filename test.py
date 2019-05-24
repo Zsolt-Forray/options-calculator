@@ -1,8 +1,4 @@
 import unittest
-import os
-import sys
-
-
 import option_pricing_black_scholes as op
 from option_pricing_black_scholes import InvalidDataError
 
@@ -11,13 +7,13 @@ class TestOptionsPricing(unittest.TestCase):
         data = (65.0, 60.0, 30.0, 35.0, 2.493)
         obj = op.OptionPricing(*data)
         result = obj.price()["call"]
-        self.assertAlmostEqual(first=5.8523, second=call_price, places=2)
+        self.assertAlmostEqual(first=5.8523, second=result, places=2)
 
-    def test_call_price(self):
+    def test_put_price(self):
         data = (65.0, 60.0, 30.0, 35.0, 2.493)
         obj = op.OptionPricing(*data)
-        put_price = obj.price()["put"]
-        self.assertAlmostEqual(first=0.7279, second=put_price, places=2)
+        result = obj.price()["put"]
+        self.assertAlmostEqual(first=0.7279, second=result, places=2)
 
     def test_call_delta(self):
         data = (150.0, 180.0, 350.0, 20.0, 2.493)
@@ -87,7 +83,7 @@ class TestOptionsPricing(unittest.TestCase):
     def test_invalid_param(self):
         data = (65.0, 60.0, 30.0, 0.0, 2.493)
         with self.assertRaises(InvalidDataError):
-            obj = op.OptionPricing(*data)
+            op.OptionPricing(*data)
 
 
 if __name__ == "__main__":
