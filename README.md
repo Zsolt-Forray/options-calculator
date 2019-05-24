@@ -27,20 +27,35 @@ git clone https://github.com/Zsolt-Forray/options-calculator.git
 +   r: Risk-free Rate (%)
 
 ```python
-from option_pricing import option_pricing_black_scholes as op
-import pprint
+import option_pricing_black_scholes as op
 
-pp = pprint.PrettyPrinter(indent=4)
+S = 65.0
+K = 60.0
+DTE = 30.0
+IV = 35.0
+r = 2.493
 
-res = op.run(S=65, K=60, DTE=30, IV=35, r=2.493)
+obj = op.OptionPricing(S, K, DTE, IV, r)
 
-pp.pprint(res)
+# Call Price
+call_price = obj.price()["call"]
+# Put Delta
+put_delta = obj.delta()["put"]
+# Put Gamma
+put_gamma = obj.gamma()["put"]
+# Call Theta
+call_theta = obj.theta()["call"]
+# Call Vega
+call_vega = obj.vega()["call"]
+# Put Rho
+put_rho = obj.rho()["put"]
+# etc...
+
+print(call_price, put_delta, put_gamma, call_theta, call_vega, put_rho)
 ```
 
 ### Output
-Dictionary: theoretical prices and the Greeks for European style Call and Put options.
-
-![Screenshot](/png/output.png)
+Theoretical prices and the Greeks for European style Call and Put options.
 
 ## Contributions
 Contributions to Options Calculator are always welcome.  
