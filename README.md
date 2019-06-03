@@ -3,7 +3,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c0113772b1dc48b9865535ca3ac7daa0)](https://www.codacy.com/app/forray.zsolt/options-calculator?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Zsolt-Forray/options-calculator&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/c0113772b1dc48b9865535ca3ac7daa0)](https://www.codacy.com/app/forray.zsolt/options-calculator?utm_source=github.com&utm_medium=referral&utm_content=Zsolt-Forray/options-calculator&utm_campaign=Badge_Coverage)
 [![Build Status](https://travis-ci.com/Zsolt-Forray/options-calculator.svg?branch=master)](https://travis-ci.com/Zsolt-Forray/options-calculator)
-[![Maintainability](https://api.codeclimate.com/v1/badges/97cb545163eb2985b6ee/maintainability)](https://codeclimate.com/github/Zsolt-Forray/options-calculator/maintainability)
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 
 ## Description
@@ -57,6 +56,9 @@ print(call_price, put_delta, put_gamma, call_theta, call_vega, put_rho)
 
 ### Output
 Theoretical prices and the Greeks for European style Call and Put options.
+
+## LICENSE
+MIT
 
 ## Contributions
 Contributions to Options Calculator are always welcome.  
