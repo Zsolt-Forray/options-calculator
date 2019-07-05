@@ -35,23 +35,16 @@ DTE = 30.0
 IV = 35.0
 r = 2.493
 
-obj = op.OptionPricing(S, K, DTE, IV, r)
+opsp = op.OptionPricing(S, K, DTE, IV, r)
 
-# Call Price
-call_price = obj.price()["call"]
-# Put Delta
-put_delta = obj.delta()["put"]
-# Put Gamma
-put_gamma = obj.gamma()["put"]
-# Call Theta
-call_theta = obj.theta()["call"]
-# Call Vega
-call_vega = obj.vega()["call"]
-# Put Rho
-put_rho = obj.rho()["put"]
+print(opsp.call_price())
+print(opsp.put_price())
+
+opsg = op.OptionGreeks(S, K, DTE, IV, r)
+
+print(opsg.call_theta())
+print(opsg.put_gamma())
 # etc...
-
-print(call_price, put_delta, put_gamma, call_theta, call_vega, put_rho)
 ```
 
 ### Output
