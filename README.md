@@ -27,6 +27,8 @@ git clone https://github.com/Zsolt-Forray/options-calculator.git
 +   r: Risk-free Rate (%)
 
 ```python
+#!/usr/bin/python3
+
 import option_pricing_black_scholes as op
 
 S = 65.0
