@@ -20,11 +20,12 @@ git clone https://github.com/Zsolt-Forray/options-calculator.git
 ### Usage Example
 
 **Parameters:**
-+   S: Stock Price
-+   K: Strike Price
-+   DTE: Days to Expiration
-+   IV: Implied Volatility (%)
-+   r: Risk-free Rate (%)
+
+* S: Stock Price
+* K: Strike Price
+* DTE: Days to Expiration
+* IV: Implied Volatility (%)
+* r: Risk-free Rate (%)
 
 ```python
 #!/usr/bin/python3
@@ -56,6 +57,5 @@ Theoretical prices and the Greeks for European style Call and Put options.
 MIT
 
 ## Contributions
-Contributions to Options Calculator are always welcome.  
-If you have questions, suggestions or want to improve this repository, please create an [issue](https://github.com/Zsolt-Forray/options-calculator/issues) or [pull requests](https://github.com/Zsolt-Forray/options-calculator/pulls).  
+Contributions to this repository are always welcome.
 This repo is maintained by Zsolt Forray (forray.zsolt@gmail.com).
