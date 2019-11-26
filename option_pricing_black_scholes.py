@@ -95,6 +95,7 @@ class OptionPrice(object):
     def round_price(self, value):
         return round(value,2)
 
+
 class OptionGreeks(OptionPrice):
     """The sensitivities of the Black-Scholes Model"""
 
