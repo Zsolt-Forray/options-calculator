@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+
+
 """
 ---------------------------------------------------------------------------------
                             OPTIONS CALCULATOR
@@ -8,7 +10,7 @@ The Black-Scholes model for European-style Options on non-dividend paying stocks
 
 |
 | Input parameter(s):   S, K, DTE, IV, r
-|                       eg. 65.0, 60.0, 30.0, 35.0, 2.493
+|                       eg. 65.0, 60.0, 30.0, 35.0, 1.6995
 |
 
 Options Pricing Parameters
@@ -24,15 +26,23 @@ Remark: Input parameters must be separated by comma(s).
 ---------------------------------------------------------------------------------
 """
 
+
+__author__  = 'Zsolt Forray'
+__license__ = 'MIT'
+__version__ = '0.0.1'
+__date__    = '26/11/2019'
+__status__  = 'Development'
+
+
 import math as m
 from scipy.stats import norm as nd
 
 
 class InvalidDataError(Exception):
     pass
-    
 
-class OptionPricing(object):
+
+class OptionPrice(object):
     def __init__(self, stock_price, strike_price, time_to_exp_days, \
                 annual_vol_pc, risk_free_rate_pc):
 
@@ -42,6 +52,13 @@ class OptionPricing(object):
         self.v = annual_vol_pc
         self.r = risk_free_rate_pc
 
+        self.t_yrs = time_to_exp_days / 365
+        self.v_dec = annual_vol_pc / 100
+        self.r_dec = risk_free_rate_pc / 100
+
+        self.check_parameters()
+
+    def check_parameters(self):
         # check input
         CONDITIONS = [
                         self.S <= 0.0,
@@ -53,76 +70,91 @@ class OptionPricing(object):
         if any(CONDITIONS):
             raise InvalidDataError("[Error] Input parameter(s) out of range")
 
-        self.t_yrs = time_to_exp_days / 365
-        self.v_dec = annual_vol_pc / 100
-        self.r_dec = risk_free_rate_pc / 100
+    def calc_d1(self):
+        return (m.log(self.S / self.K) + (self.r_dec + self.v_dec**2 / 2) * self.t_yrs) \
+                /(self.v_dec * m.sqrt(self.t_yrs))
 
-        self.d = (m.log(self.S / self.K) + (self.r_dec + self.v_dec ** 2 / 2) * \
-                self.t_yrs) / (self.v_dec * m.sqrt(self.t_yrs))
-
-        self.X1 = self.K * m.exp(-self.r_dec * self.t_yrs)
-        self.X2c = nd.cdf(self.d - self.v_dec * m.sqrt(self.t_yrs))
-        self.X2p = nd.cdf(self.v_dec * m.sqrt(self.t_yrs) - self.d)
+    def calc_d2(self):
+        d1 = self.calc_d1()
+        return d1 - self.v_dec * m.sqrt(self.t_yrs)
 
     def call_price(self):
-        X0c = self.S * nd.cdf(self.d)
-        callprice = round(X0c - self.X1 * self.X2c, 2)
-        return callprice
+        d1 = self.calc_d1()
+        d2 = self.calc_d2()
+        callprice = self.S * nd.cdf(d1) \
+                    -self.K * m.exp(-self.r_dec * self.t_yrs) * nd.cdf(d2)
+        return self.round_price(callprice)
 
     def put_price(self):
-        X0p = -self.S * nd.cdf(-self.d)
-        putprice = round(X0p + self.X1 * self.X2p, 2)
-        return putprice
+        d1 = self.calc_d1()
+        d2 = self.calc_d2()
+        putprice = self.K * m.exp(-self.r_dec * self.t_yrs) * nd.cdf(-d2) \
+                   -self.S * nd.cdf(-d1)
+        return self.round_price(putprice)
 
+    def round_price(self, value):
+        return round(value,2)
 
-class OptionGreeks(OptionPricing):
+class OptionGreeks(OptionPrice):
     """The sensitivities of the Black-Scholes Model"""
 
     def __init__(self, stock_price, strike_price, time_to_exp_days, \
                 annual_vol_pc, risk_free_rate_pc):
-        OptionPricing.__init__(self, stock_price, strike_price, time_to_exp_days, \
-                                annual_vol_pc, risk_free_rate_pc)
+        OptionPrice.__init__(self, stock_price, strike_price, time_to_exp_days, \
+                             annual_vol_pc, risk_free_rate_pc)
 
-        self.Xt0 = -self.S * self.v_dec * nd.pdf(self.d) / (2 * m.sqrt(self.t_yrs))
-        self.Xt1 = self.r_dec * self.K * m.exp(-self.r_dec * self.t_yrs)
-        self.Xr0 = self.t_yrs * self.K * m.exp(-self.r_dec * self.t_yrs)
+    def round_greeks(self, value):
+        return round(value,4)
 
     def call_delta(self):
-        calldelta = round(nd.cdf(self.d), 4)
-        return calldelta
+        d1 = self.calc_d1()
+        calldelta = nd.cdf(d1)
+        return self.round_greeks(calldelta)
 
     def put_delta(self):
-        putdelta = round(-nd.cdf(-self.d), 4)
-        return putdelta
+        putdelta = self.call_delta()-1
+        return self.round_greeks(putdelta)
 
     def call_gamma(self):
-        callgamma = round(nd.pdf(self.d) / (self.S * self.v_dec * m.sqrt(self.t_yrs)), 4)
-        return callgamma
+        d1 = self.calc_d1()
+        callgamma = nd.pdf(d1) / (self.S * self.v_dec * m.sqrt(self.t_yrs))
+        return self.round_greeks(callgamma)
 
     def put_gamma(self):
-        putgamma = self.call_gamma()
-        return putgamma
+        return self.call_gamma()
 
     def call_theta(self):
-        calltheta = round((self.Xt0 - self.Xt1 * self.X2c) / 365, 4)
-        return calltheta
+        d1 = self.calc_d1()
+        d2 = self.calc_d2()
+        calltheta = (-self.S * self.v_dec * nd.pdf(d1) / (2 * m.sqrt(self.t_yrs))\
+                     -self.r_dec * self.K * m.exp(-self.r_dec * self.t_yrs) * nd.cdf(d2))
+        calltheta = calltheta / 365
+        return self.round_greeks(calltheta)
 
     def put_theta(self):
-        puttheta = round((self.Xt0 + self.Xt1 * self.X2p) / 365, 4)
-        return puttheta
+        d1 = self.calc_d1()
+        d2 = self.calc_d2()
+        puttheta = (-self.S * self.v_dec * nd.pdf(d1) / (2 * m.sqrt(self.t_yrs))\
+                    +self.r_dec * self.K * m.exp(-self.r_dec * self.t_yrs) * nd.cdf(-d2))
+        puttheta = puttheta / 365
+        return self.round_greeks(puttheta)
 
     def call_vega(self):
-        callvega = round((self.S * m.sqrt(self.t_yrs) * nd.pdf(self.d)) / 100, 4)
-        return callvega
+        d1 = self.calc_d1()
+        callvega = (self.S * m.sqrt(self.t_yrs) * nd.pdf(d1)) / 100
+        return self.round_greeks(callvega)
 
     def put_vega(self):
-        putvega = self.call_vega()
-        return putvega
+        return self.call_vega()
 
     def call_rho(self):
-        callrho = round(self.Xr0 * self.X2c / 100, 4)
-        return callrho
+        d2 = self.calc_d2()
+        callrho = self.K * self.t_yrs * m.exp(-self.r_dec * self.t_yrs)\
+                  * nd.cdf(d2) / 100
+        return self.round_greeks(callrho)
 
     def put_rho(self):
-        putrho = round(-self.Xr0 * self.X2p / 100, 4)
-        return putrho
+        d2 = self.calc_d2()
+        putrho = -self.K * self.t_yrs * m.exp(-self.r_dec * self.t_yrs)\
+                 * nd.cdf(-d2) / 100
+        return self.round_greeks(putrho)
