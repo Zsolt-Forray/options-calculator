@@ -23,23 +23,23 @@ Calculates the value of Call/Put European options on non-dividend paying stocks 
 ```python
 #!/usr/bin/python3
 
-import option_pricing_black_scholes as op
+import option_pricing_black_scholes as bs
 
 S = 65.0
 K = 60.0
 DTE = 30.0
 IV = 35.0
-r = 2.493
+r = 1.6995
 
-opsp = op.OptionPricing(S, K, DTE, IV, r)
+price = bs.OptionPrice(S, K, DTE, IV, r)
 
-print(opsp.call_price())
-print(opsp.put_price())
+print(price.call_price())
+print(price.put_price())
 
-opsg = op.OptionGreeks(S, K, DTE, IV, r)
+greeks = bs.OptionGreeks(S, K, DTE, IV, r)
 
-print(opsg.call_theta())
-print(opsg.put_gamma())
+print(greeks.call_theta())
+print(greeks.put_gamma())
 # etc...
 ```
 
