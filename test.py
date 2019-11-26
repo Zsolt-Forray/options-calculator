@@ -18,7 +18,7 @@ import option_pricing_black_scholes as bs
 from option_pricing_black_scholes import InvalidDataError
 
 
-class TestOptionPricing(unittest.TestCase):
+class TestOptionPrice(unittest.TestCase):
     def test_call_price(self):
         data = (65.0, 60.0, 30.0, 35.0, 2.493)
         price = bs.OptionPrice(*data)
