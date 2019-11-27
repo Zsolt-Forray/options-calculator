@@ -83,16 +83,17 @@ class OptionPrice(object):
         d2 = self.calc_d2()
         callprice = self.S * nd.cdf(d1) \
                     -self.K * m.exp(-self.r_dec * self.t_yrs) * nd.cdf(d2)
-        return self.round_price(callprice)
+        return OptionPrice.round_price(callprice)
 
     def put_price(self):
         d1 = self.calc_d1()
         d2 = self.calc_d2()
         putprice = self.K * m.exp(-self.r_dec * self.t_yrs) * nd.cdf(-d2) \
                    -self.S * nd.cdf(-d1)
-        return self.round_price(putprice)
+        return OptionPrice.round_price(putprice)
 
-    def round_price(self, value):
+    @staticmethod
+    def round_price(value):
         return round(value,2)
 
 
@@ -104,22 +105,23 @@ class OptionGreeks(OptionPrice):
         OptionPrice.__init__(self, stock_price, strike_price, time_to_exp_days, \
                              annual_vol_pc, risk_free_rate_pc)
 
-    def round_greeks(self, value):
+    @staticmethod
+    def round_greeks(value):
         return round(value,4)
 
     def call_delta(self):
         d1 = self.calc_d1()
         calldelta = nd.cdf(d1)
-        return self.round_greeks(calldelta)
+        return OptionGreeks.round_greeks(calldelta)
 
     def put_delta(self):
         putdelta = self.call_delta()-1
-        return self.round_greeks(putdelta)
+        return OptionGreeks.round_greeks(putdelta)
 
     def call_gamma(self):
         d1 = self.calc_d1()
         callgamma = nd.pdf(d1) / (self.S * self.v_dec * m.sqrt(self.t_yrs))
-        return self.round_greeks(callgamma)
+        return OptionGreeks.round_greeks(callgamma)
 
     def put_gamma(self):
         return self.call_gamma()
@@ -130,7 +132,7 @@ class OptionGreeks(OptionPrice):
         calltheta = (-self.S * self.v_dec * nd.pdf(d1) / (2 * m.sqrt(self.t_yrs))\
                      -self.r_dec * self.K * m.exp(-self.r_dec * self.t_yrs) * nd.cdf(d2))
         calltheta = calltheta / 365
-        return self.round_greeks(calltheta)
+        return OptionGreeks.round_greeks(calltheta)
 
     def put_theta(self):
         d1 = self.calc_d1()
@@ -138,12 +140,12 @@ class OptionGreeks(OptionPrice):
         puttheta = (-self.S * self.v_dec * nd.pdf(d1) / (2 * m.sqrt(self.t_yrs))\
                     +self.r_dec * self.K * m.exp(-self.r_dec * self.t_yrs) * nd.cdf(-d2))
         puttheta = puttheta / 365
-        return self.round_greeks(puttheta)
+        return OptionGreeks.round_greeks(puttheta)
 
     def call_vega(self):
         d1 = self.calc_d1()
         callvega = (self.S * m.sqrt(self.t_yrs) * nd.pdf(d1)) / 100
-        return self.round_greeks(callvega)
+        return OptionGreeks.round_greeks(callvega)
 
     def put_vega(self):
         return self.call_vega()
@@ -152,10 +154,10 @@ class OptionGreeks(OptionPrice):
         d2 = self.calc_d2()
         callrho = self.K * self.t_yrs * m.exp(-self.r_dec * self.t_yrs)\
                   * nd.cdf(d2) / 100
-        return self.round_greeks(callrho)
+        return OptionGreeks.round_greeks(callrho)
 
     def put_rho(self):
         d2 = self.calc_d2()
         putrho = -self.K * self.t_yrs * m.exp(-self.r_dec * self.t_yrs)\
                  * nd.cdf(-d2) / 100
-        return self.round_greeks(putrho)
+        return OptionGreeks.round_greeks(putrho)
