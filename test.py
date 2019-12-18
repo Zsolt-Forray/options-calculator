@@ -36,10 +36,6 @@ class TestOptionPrice(unittest.TestCase):
         with self.assertRaises(InvalidDataError):
             bs.OptionPrice(*data)
 
-    def test_missing_param(self):
-        data = (65.0, 60.0, 30.0, 25.0)
-        with self.assertRaises(TypeError):
-            bs.OptionPrice(*data)
 
 class TestOptionGreeks(unittest.TestCase):
     def test_call_delta(self):
@@ -105,11 +101,6 @@ class TestOptionGreeks(unittest.TestCase):
     def test_invalid_param(self):
         data = (65.0, 60.0, -30.0, 40.0, 2.493)
         with self.assertRaises(InvalidDataError):
-            bs.OptionGreeks(*data)
-
-    def test_missing_param(self):
-        data = (65.0, 60.0, 30.0, 25.0)
-        with self.assertRaises(TypeError):
             bs.OptionGreeks(*data)
 
 
